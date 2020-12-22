@@ -1,10 +1,11 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService{
 
   final String uid;
-  int number=0;
-  DatabaseService({this.uid,this.number});
+  int number,points;
+  DatabaseService({this.uid,this.number,this.points});
 
   final CollectionReference profiles=Firestore.instance.collection('profiles');
   final CollectionReference posts=Firestore.instance.collection('posts');
@@ -17,11 +18,17 @@ class DatabaseService{
       'image':image,
     });
   }
-  Future updatePosts(String data)async{
+  Future updatePosts(String data,String uid,int points)async{
     return await posts.document(number.toString()).setData({
       'data':data,
+      'uid':uid,
+      'points':points,
     });
   }
+  Future updatePoints(int points)async{
+    return await posts.document((number.toString())).updateData({'points':points});
+  }
+
 
 
 

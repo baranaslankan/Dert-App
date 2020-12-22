@@ -5,6 +5,7 @@ import 'package:projext/pages/addDert.dart';
 import 'package:projext/pages/bottom_nav.dart';
 import 'package:projext/pages/forgot_password.dart';
 import 'package:projext/pages/log_in.dart';
+import 'package:projext/pages/rank_info.dart';
 import 'package:projext/pages/sign_up.dart';
 import 'package:projext/pages/updateProfile.dart';
 
@@ -19,6 +20,7 @@ void main() {
       '/updatep':(context)=>Update_Profile(),
       '/adddert':(context)=>ADD_Dert(),
       '/forgot':(context)=>ForgotPassword(),
+      'rank_info':(context)=>Rank_Info(),
     },
   ));
 }

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Rank extends StatefulWidget {
+  static String userName;
   @override
   _RankState createState() => _RankState();
 }
@@ -31,6 +32,12 @@ class _RankState extends State<Rank> {
                   children: [
                     ListTile(
                       title: Text(snapshot.data[index].data['username']),
+                      onTap: (){
+                        setState(() {
+                          Rank.userName=snapshot.data[index].data['username'];
+                        });
+                        Navigator.of(context).pushNamed('rank_info');
+                      },
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 4,vertical: 2),

@@ -60,9 +60,9 @@ class _ADD_DertState extends State<ADD_Dert> {
                   snapShot = ( await Firestore.instance.collection('posts').document(_number.toString()).get()) ;
                 }
 
-                  await DatabaseService(number: _number).updatePosts(_textcontroller.text);
+                  await DatabaseService(number: _number).updatePosts(_textcontroller.text,Log_In.currentUser.uid,0);
                   _number++;
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacementNamed('/nav');
                   setState(() {
                   });
               },
