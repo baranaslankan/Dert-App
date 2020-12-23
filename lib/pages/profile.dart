@@ -85,7 +85,7 @@ class _ProfileState extends State<Profile> {
                        child: Column(
                          children: [
                            ListTile(
-                             title: index==0 ? Text("İsim Soyisim: ${snapshot.data['name']}\nKullanıcı Adı: ${snapshot.data['username']}\nE-Posta: ${snapshot.data['email']}"): null ,
+                             title:  Text("İsim Soyisim: ${snapshot.data['name']}\nKullanıcı Adı: ${snapshot.data['username']}\nE-Posta: ${snapshot.data['email']}") ,
                            ),
                          ],
                        ),

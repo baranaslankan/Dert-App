@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Notifications extends StatefulWidget {
@@ -6,92 +7,51 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
-  bool _ifPressed=false,_ifPressed3=false,_ifPressed2=true;
+  Future getPosts()async{
+    var firestore=Firestore.instance;
+    QuerySnapshot posdata=await firestore.collection('posts').getDocuments();
+    return posdata.documents;
+  }
+  final controller = PageController(initialPage: 0);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Bildirimler"),
+        title: Text("Notifications"),
       ),
-      body: Row(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 8.0),
-            child: FlatButton(
-              color: _ifPressed2 ? Colors.blue:Colors.white,
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onPressed: (){
-                setState(() {
-                  _ifPressed=false;
-                  _ifPressed2=true;
-                  _ifPressed3=false;
-                });
+      body: Center(
+        child: PageView(controller: controller,
+          children: [
+            FutureBuilder(
+              future: getPosts(),
+              builder: (_,snapshot){
+                return ListView.builder(
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (_,index){
+                    return Material(
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding:  EdgeInsets.symmetric(horizontal: 16,vertical: 20),
+                            child: Text("${snapshot.data[index].data['postedby']} bir dert paylaştı !"),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8,vertical: 4),
+                            child: Divider(
+                              thickness: 2,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
               },
-              child: Text("Yeni Dertler",
-                style: TextStyle(
-                  color: _ifPressed2 ? Colors.white:Colors.blue,
-                ),),
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                    color: Colors.blue
-                ),
-                borderRadius: BorderRadius.circular(25.0),
-              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 8.0),
-            child: FlatButton(
-              color: _ifPressed ? Colors.blue:Colors.white,
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onPressed: (){
-                setState(() {
-                  _ifPressed=true;
-                  _ifPressed2=false;
-                  _ifPressed3=false;
-                });
-              },
-              child: Text("Bahsetmeler",
-                style: TextStyle(
-                  color: _ifPressed ? Colors.white:Colors.blue,
-                ),),
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                    color: Colors.blue
-                ),
-                borderRadius: BorderRadius.circular(25.0),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 8.0),
-            child: FlatButton(
-              color: _ifPressed3 ? Colors.blue:Colors.white,
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onPressed: (){
-                setState(() {
-                  _ifPressed=false;
-                  _ifPressed2=false;
-                  _ifPressed3=true;
-                });
-              },
-              child: Text("Tepkiler",
-                style: TextStyle(
-                  color: _ifPressed3 ? Colors.white:Colors.blue,
-                ),),
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                    color: Colors.blue
-                ),
-                borderRadius: BorderRadius.circular(25.0),
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

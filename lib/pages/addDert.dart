@@ -14,7 +14,7 @@ class ADD_Dert extends StatefulWidget {
 }
 
 class _ADD_DertState extends State<ADD_Dert> {
-  var snapShot;
+  var snapShot,snapShot2;
   int _number =0;
   TextEditingController _textcontroller=new TextEditingController();
   @override
@@ -54,13 +54,15 @@ class _ADD_DertState extends State<ADD_Dert> {
               ),
               color: Theme.of(context).primaryColor,
               onPressed: () async {
+                snapShot2= await Firestore.instance.collection('profiles').document(Log_In.currentUser.uid).get();
                 snapShot = (await Firestore.instance.collection('posts').document(_number.toString()).get()) ;
                 while(snapShot.exists){
                   _number++;
                   snapShot = ( await Firestore.instance.collection('posts').document(_number.toString()).get()) ;
+
                 }
 
-                  await DatabaseService(number: _number).updatePosts(_textcontroller.text,Log_In.currentUser.uid,0);
+                  await DatabaseService(number: _number).updatePosts(_textcontroller.text,Log_In.currentUser.uid,0,snapShot2.data['username']);
                   _number++;
                   Navigator.of(context).pushReplacementNamed('/nav');
                   setState(() {
