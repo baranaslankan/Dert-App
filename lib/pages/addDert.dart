@@ -54,6 +54,7 @@ class _ADD_DertState extends State<ADD_Dert> {
               ),
               color: Theme.of(context).primaryColor,
               onPressed: () async {
+                List _liste=new List<String>();
                 snapShot2= await Firestore.instance.collection('profiles').document(Log_In.currentUser.uid).get();
                 snapShot = (await Firestore.instance.collection('posts').document(_number.toString()).get()) ;
                 while(snapShot.exists){
@@ -62,7 +63,7 @@ class _ADD_DertState extends State<ADD_Dert> {
 
                 }
 
-                  await DatabaseService(number: _number).updatePosts(_textcontroller.text,Log_In.currentUser.uid,0,snapShot2.data['username']);
+                  await DatabaseService(number: _number).updatePosts(_textcontroller.text,Log_In.currentUser.uid,0,snapShot2.data['username'],_liste);
                   _number++;
                   Navigator.of(context).pushReplacementNamed('/nav');
                   setState(() {

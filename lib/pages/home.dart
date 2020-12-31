@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:projext/pages/addDert.dart';
+import 'package:projext/pages/log_in.dart';
 import 'package:projext/services/database.dart';
 
 class Home extends StatefulWidget {
@@ -38,21 +40,72 @@ class _HomeState extends State<Home> {
                           children: [
                             Padding(
                               padding:  EdgeInsets.symmetric(horizontal: 165,vertical: 10),
-                              child: Text("${snapshot.data[index].data['data']}\n${snapshot.data[index].data['points']}\n${snapshot.data[index].data['postedby']}"),
+                              child: Text("${snapshot.data[snapshot.data.length-index-1].data['data']}\n${snapshot.data[snapshot.data.length-index-1].data['points']}\n${snapshot.data[snapshot.data.length-index-1].data['postedby']}"),
                             ),
                             Padding(
                               padding: EdgeInsets.fromLTRB(0,10,270,5),
                               child: FlatButton.icon(
                                 onPressed: ()async{
-                                  var snapShot=await Firestore.instance.collection('profiles').document(snapshot.data[index].data['uid']).get();
-                                     setState(() {
-                                        DatabaseService(number: index).updatePoints(snapshot.data[index].data['points']+1);
-                                        DatabaseService(number: index).updateName(snapShot.data['username']);
-                                     });
+                                  String color;
+                                  var snapShot=await Firestore.instance.collection('profiles').document(snapshot.data[snapshot.data.length-index-1].data['uid']).get();
+                                  int n=0;
+                                  while(n<snapshot.data[snapshot.data.length-index-1].data['liste'].length){
+                                    if(snapshot.data[snapshot.data.length-index-1].data['liste'][n]==Log_In.currentUser.uid){
+                                      setState(() {
+                                        DatabaseService(number: snapshot.data.length-index-1).updatePoints(snapshot.data[snapshot.data.length-index-1].data['points']-1);
+                                        DatabaseService(uid: snapshot.data[snapshot.data.length-index-1].data['uid']).updatePoints2(snapShot.data['points']-1);
+                                        DatabaseService(number: snapshot.data.length-index-1).updateList2(Log_In.currentUser.uid);
+                                        DatabaseService(number: snapshot.data.length-index-1).updateName(snapShot.data['username']);
+                                        //snapshot.data[snapshot.data.length-index-1].data['liste'].data[n]==null;
+                                      });
+                                      break;
+                                    }
+                                    else {
+                                      if (n ==
+                                          snapshot.data[snapshot.data.length -
+                                              index - 1].data['liste'].length -
+                                              1) {
+                                        setState(() {
+                                          DatabaseService(
+                                              number: snapshot.data.length -
+                                                  index - 1).updatePoints(
+                                              snapshot.data[snapshot.data
+                                                  .length - index - 1]
+                                                  .data['points'] + 1);
+                                          DatabaseService(number: snapshot.data.length-index-1).updateName(snapShot.data['username']);
+                                          DatabaseService(
+                                              uid: snapshot.data[snapshot.data
+                                                  .length - index - 1]
+                                                  .data['uid']).updatePoints2(
+                                              snapShot.data['points'] + 1);
+                                          DatabaseService(
+                                              number: snapshot.data.length -
+                                                  index - 1).updateList(
+                                              Log_In.currentUser.uid);
+                                          //snapshot.data[snapshot.data.length-index-1].data['liste'].add(Log_In.currentUser.uid);
+                                        });
+                                        break;
+                                      }
+
+                                    }
+                                    n++;}
+                                  if(snapshot.data[snapshot.data.length-index-1].data['liste'].length==0){
+                                    setState(() {
+                                      DatabaseService(number: snapshot.data.length-index-1).updatePoints(snapshot.data[snapshot.data.length-index-1].data['points']+1);
+                                      DatabaseService(uid: snapshot.data[snapshot.data.length-index-1].data['uid']).updatePoints2(snapShot.data['points']+1);
+                                      DatabaseService(number: snapshot.data.length-index-1).updateList(Log_In.currentUser.uid);
+                                      DatabaseService(number: snapshot.data.length-index-1).updateName(snapShot.data['username']);
+                                      //snapshot.data[snapshot.data.length-index-1].data['liste'].add(Log_In.currentUser.uid);
+                                    });
+                                  }
+
+
+
+
 
                                 },
                                 icon: Icon(Icons.smoking_rooms_sharp,
-                                color: Colors.blue,),
+                                color: HexColor(snapshot.data[snapshot.data.length-index-1].data['liste'].contains(Log_In.currentUser.uid) ? '#C0C0C0':'#0000FF' )),
                                 label: Text("Yak"),
                               ),
                             ),

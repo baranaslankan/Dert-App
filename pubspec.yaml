@@ -27,6 +27,7 @@ dependencies:
   cloud_firestore: ^0.12.9+4
   image_picker: ^0.6.5+2
   firebase_storage: ^3.0.3
+  hexcolor: ^1.0.6
 
 
 

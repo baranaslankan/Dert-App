@@ -79,13 +79,13 @@ class _ProfileState extends State<Profile> {
                future: getDatas(),
                builder: (_,snapshot){
                  return ListView.builder(
-                   itemCount: 1,
+                   itemCount: snapshot.hasData? 1: 0,
                    itemBuilder: (_,index){
                      return Material(
                        child: Column(
                          children: [
                            ListTile(
-                             title:  Text("İsim Soyisim: ${snapshot.data['name']}\nKullanıcı Adı: ${snapshot.data['username']}\nE-Posta: ${snapshot.data['email']}") ,
+                             title:  Text("İsim Soyisim: ${snapshot.data['name']}\nKullanıcı Adı: ${snapshot.data['username']}\nE-Posta: ${snapshot.data['email']}\nPuan: ${snapshot.data['points']}") ,
                            ),
                          ],
                        ),

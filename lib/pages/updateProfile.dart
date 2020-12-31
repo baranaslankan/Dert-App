@@ -20,6 +20,7 @@ class _UpdareProfileState extends State<Update_Profile> {
 
 
 
+
   File _image;
   String _uploadedFileURL;
   TextEditingController _nameController = new TextEditingController();
@@ -121,9 +122,12 @@ class _UpdareProfileState extends State<Update_Profile> {
                               _uploadedFileURL=fileURL;
                             });
                           });
+                          var snapShot=await Firestore.instance.collection('profiles').document(Log_In.currentUser.uid).get();
                           updateUser.photoUrl=_uploadedFileURL;
                           Log_In.currentUser.updateProfile(updateUser);
-                          await DatabaseService(uid: Log_In.currentUser.uid).updateUserData(_nameController.text, _userNameController.text,Log_In.currentUser.email, _uploadedFileURL);
+                          DatabaseService(uid: Log_In.currentUser.uid).updateName1(_nameController.text);
+                          DatabaseService(uid: Log_In.currentUser.uid).updateNick(_userNameController.text);
+                          DatabaseService(uid: Log_In.currentUser.uid).updatePhoto(_uploadedFileURL);
                           Navigator.of(context).pushNamed('/nav');
                         }
 

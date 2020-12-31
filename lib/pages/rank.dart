@@ -8,10 +8,12 @@ class Rank extends StatefulWidget {
 }
 
 class _RankState extends State<Rank> {
+
   Future getDatas()async{
     var firestore=Firestore.instance;
-    QuerySnapshot rdata=await firestore.collection('profiles').getDocuments();
-    return rdata.documents;
+    QuerySnapshot rdata=await firestore.collection('profiles')
+        .orderBy("points", descending: true).getDocuments();
+      return rdata.documents;
   }
 
   @override

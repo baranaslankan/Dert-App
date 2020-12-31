@@ -158,7 +158,7 @@ class _Sign_upState extends State<Sign_up> {
                         });
                         updateUser.photoUrl=_uploadedFileURL;
                         user.updateProfile(updateUser);
-                        await DatabaseService(uid: user.uid).updateUserData(_nameController.text, _userNameController.text, _emailController.text, _uploadedFileURL);
+                        await DatabaseService(uid: user.uid).updateUserData(_nameController.text, _userNameController.text, _emailController.text, _uploadedFileURL,0);
                         Navigator.of(context).pushNamed('/log_in');
                       }
 

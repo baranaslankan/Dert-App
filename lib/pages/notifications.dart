@@ -28,14 +28,14 @@ class _NotificationsState extends State<Notifications> {
               future: getPosts(),
               builder: (_,snapshot){
                 return ListView.builder(
-                  itemCount: snapshot.data.length,
+                  itemCount: snapshot?.data?.length ?? 0,
                   itemBuilder: (_,index){
                     return Material(
                       child: Column(
                         children: [
                           Padding(
                             padding:  EdgeInsets.symmetric(horizontal: 16,vertical: 20),
-                            child: Text("${snapshot.data[index].data['postedby']} bir dert paylaştı !"),
+                            child: Text("${snapshot.data[snapshot.data.length-index-1].data['postedby']} bir dert paylaştı !"),
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 8,vertical: 4),
