@@ -10,6 +10,7 @@ import 'package:projext/pages/log_in.dart';
 import 'package:projext/services/database.dart';
 
 class Update_Profile extends StatefulWidget {
+  static int n;
   @override
   _UpdareProfileState createState() => _UpdareProfileState();
 }
@@ -128,6 +129,21 @@ class _UpdareProfileState extends State<Update_Profile> {
                           DatabaseService(uid: Log_In.currentUser.uid).updateName1(_nameController.text);
                           DatabaseService(uid: Log_In.currentUser.uid).updateNick(_userNameController.text);
                           DatabaseService(uid: Log_In.currentUser.uid).updatePhoto(_uploadedFileURL);
+                           var snapShot2=await Firestore.instance.collection('profiles').document(Log_In.currentUser.uid).get();
+                           Update_Profile.n=0;
+                           while(true){
+                             var snapShot=await Firestore.instance.collection('posts').document('${Update_Profile.n}').get();
+                             if(!snapShot.exists){
+                               break;}
+                             if(snapShot.data['uid']==Log_In.currentUser.uid){
+                               await DatabaseService(number: Update_Profile.n).updateName(snapShot2.data['username']);
+                             }
+                             Update_Profile.n++;
+                           }
+                           setState(() {
+
+                           });
+
                           Navigator.of(context).pushNamed('/nav');
                         }
 

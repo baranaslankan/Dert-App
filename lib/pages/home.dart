@@ -55,7 +55,6 @@ class _HomeState extends State<Home> {
                                         DatabaseService(number: snapshot.data.length-index-1).updatePoints(snapshot.data[snapshot.data.length-index-1].data['points']-1);
                                         DatabaseService(uid: snapshot.data[snapshot.data.length-index-1].data['uid']).updatePoints2(snapShot.data['points']-1);
                                         DatabaseService(number: snapshot.data.length-index-1).updateList2(Log_In.currentUser.uid);
-                                        DatabaseService(number: snapshot.data.length-index-1).updateName(snapShot.data['username']);
                                         //snapshot.data[snapshot.data.length-index-1].data['liste'].data[n]==null;
                                       });
                                       break;
@@ -72,7 +71,6 @@ class _HomeState extends State<Home> {
                                               snapshot.data[snapshot.data
                                                   .length - index - 1]
                                                   .data['points'] + 1);
-                                          DatabaseService(number: snapshot.data.length-index-1).updateName(snapShot.data['username']);
                                           DatabaseService(
                                               uid: snapshot.data[snapshot.data
                                                   .length - index - 1]
@@ -94,7 +92,6 @@ class _HomeState extends State<Home> {
                                       DatabaseService(number: snapshot.data.length-index-1).updatePoints(snapshot.data[snapshot.data.length-index-1].data['points']+1);
                                       DatabaseService(uid: snapshot.data[snapshot.data.length-index-1].data['uid']).updatePoints2(snapShot.data['points']+1);
                                       DatabaseService(number: snapshot.data.length-index-1).updateList(Log_In.currentUser.uid);
-                                      DatabaseService(number: snapshot.data.length-index-1).updateName(snapShot.data['username']);
                                       //snapshot.data[snapshot.data.length-index-1].data['liste'].add(Log_In.currentUser.uid);
                                     });
                                   }

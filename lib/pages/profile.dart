@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projext/pages/log_in.dart';
+import 'package:projext/pages/rank.dart';
 import 'package:projext/services/database.dart';
 
 class Profile extends StatefulWidget {
@@ -11,12 +12,12 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+
   Future getDatas()async{
     var firestore=Firestore.instance;
     DocumentSnapshot pdata=await firestore.collection('profiles').document(Log_In.currentUser.uid).get();
     return pdata;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,31 +47,47 @@ class _ProfileState extends State<Profile> {
       ),
       body: Column(
         children: [
-          Stack(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 4.0),
-                child: Card(
-                  child: Image(
-                    image: NetworkImage('https://www.geekgirlauthority.com/wp-content/uploads/2020/03/Screen-Shot-2020-03-01-at-12.09.15-PM-1280x640.png'),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(8,200,8,0),
-                child: Divider(
-                  height: 40.0,
-                  thickness: 2.0,
-                ),
-              ),
-              Padding(
-                padding:  EdgeInsets.fromLTRB(155, 140, 0, 30),
-                child: CircleAvatar(
-                  radius: 50,
-                  backgroundImage: NetworkImage(Log_In.currentUser.photoUrl),
-                ),
-              ),
-            ],
+          FutureBuilder(
+            future: getDatas(),
+            builder: (_,snapshot){
+              return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                itemCount: snapshot.hasData? 1:0,
+                itemBuilder: (_,index){
+                  return Material(
+                      child: Stack(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 4.0),
+                            child: Card(
+                              child: Image(
+                                image: NetworkImage('https://www.geekgirlauthority.com/wp-content/uploads/2020/03/Screen-Shot-2020-03-01-at-12.09.15-PM-1280x640.png'),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(8,200,8,0),
+                            child: Divider(
+                              height: 40.0,
+                              thickness: 2.0,
+                            ),
+                          ),
+                          Padding(
+                            padding:  EdgeInsets.fromLTRB(155, 150, 0, 30),
+                            child: CircleAvatar(
+                              radius: 50,
+                              backgroundImage: NetworkImage(snapshot.data['image']),
+                              backgroundColor: Colors.transparent,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                  );
+                }
+              );
+            }
           ),
          Expanded(
            child: Container(
@@ -85,7 +102,7 @@ class _ProfileState extends State<Profile> {
                        child: Column(
                          children: [
                            ListTile(
-                             title:  Text("İsim Soyisim: ${snapshot.data['name']}\nKullanıcı Adı: ${snapshot.data['username']}\nE-Posta: ${snapshot.data['email']}\nPuan: ${snapshot.data['points']}") ,
+                             title:  Text("İsim Soyisim: ${snapshot.data['name']}\nKullanıcı Adı: ${snapshot.data['username']}\nE-Posta: ${snapshot.data['email']}\nPuan: ${snapshot.data['points']}\nSıralama: ${Rank.rank}") ,
                            ),
                          ],
                        ),
