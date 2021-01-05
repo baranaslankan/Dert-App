@@ -55,6 +55,9 @@ class DatabaseService{
   Future updateList2(String uid)async{
     return await posts.document((number.toString())).updateData({'liste':FieldValue.arrayRemove([uid])});
   }
+  Future deletePost()async{
+    return await posts.document((number.toString())).delete();
+  }
 
 
 

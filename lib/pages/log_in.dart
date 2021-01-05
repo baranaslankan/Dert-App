@@ -181,7 +181,7 @@ class _Log_InState extends State<Log_In> {
                               color: Theme.of(context).primaryColor,
                               fontWeight: FontWeight.bold,
                             ),
-                            recognizer: TapGestureRecognizer()..onTap = () => {Navigator.of(context).pushNamed('/sign_up')}),
+                            recognizer: TapGestureRecognizer()..onTap = () => {Navigator.of(context).pushReplacementNamed('/sign_up')}),
                       ],
                     ),
                   ),

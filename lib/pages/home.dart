@@ -38,74 +38,108 @@ class _HomeState extends State<Home> {
                       child: Card(
                         child: Column(
                           children: [
-                            Padding(
-                              padding:  EdgeInsets.symmetric(horizontal: 165,vertical: 10),
-                              child: Text("${snapshot.data[snapshot.data.length-index-1].data['data']}\n${snapshot.data[snapshot.data.length-index-1].data['points']}\n${snapshot.data[snapshot.data.length-index-1].data['postedby']}"),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                if(Log_In.currentUser.uid==snapshot.data[snapshot.data.length-index-1].data['uid'])
+                                PopupMenuButton(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
+                                    child: Icon(
+                                      Icons.menu,
+                                      color: Colors.grey[850],
+                                    ),
+                                  ),
+                                  onSelected: (String value) async{
+                                    var snapShot2=await Firestore.instance.collection('profiles').document(snapshot.data[snapshot.data.length-index-1].data['uid']).get();
+                                  switch (value) {
+                                  case 'Sil':
+                                 setState(() {
+                                   DatabaseService(number:snapshot.data.length-index-1 ).deletePost();
+                                   DatabaseService(uid: snapshot.data[snapshot.data.length-index-1].data['uid']).updatePoints2(snapShot2.data['points']-snapshot.data[snapshot.data.length-index-1].data['points']);
+                                 });
+                                  break;
+                                  }
+                                  },
+                                  itemBuilder: (BuildContext context){
+                                    return {'Sil'}.map((String choice) {
+                                      return PopupMenuItem(
+                                        value: choice,
+                                        child: Text(choice),
+                                      );
+                                    }).toList();
+                                  },
+                                ),
+                              ],
                             ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(0,10,270,5),
-                              child: FlatButton.icon(
-                                onPressed: ()async{
-                                  String color;
-                                  var snapShot=await Firestore.instance.collection('profiles').document(snapshot.data[snapshot.data.length-index-1].data['uid']).get();
-                                  int n=0;
-                                  while(n<snapshot.data[snapshot.data.length-index-1].data['liste'].length){
-                                    if(snapshot.data[snapshot.data.length-index-1].data['liste'][n]==Log_In.currentUser.uid){
-                                      setState(() {
-                                        DatabaseService(number: snapshot.data.length-index-1).updatePoints(snapshot.data[snapshot.data.length-index-1].data['points']-1);
-                                        DatabaseService(uid: snapshot.data[snapshot.data.length-index-1].data['uid']).updatePoints2(snapShot.data['points']-1);
-                                        DatabaseService(number: snapshot.data.length-index-1).updateList2(Log_In.currentUser.uid);
-                                        //snapshot.data[snapshot.data.length-index-1].data['liste'].data[n]==null;
-                                      });
-                                      break;
-                                    }
-                                    else {
-                                      if (n ==
-                                          snapshot.data[snapshot.data.length -
-                                              index - 1].data['liste'].length -
-                                              1) {
+                                Padding(
+                                  padding:  EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                                  child: Text("${snapshot.data[snapshot.data.length-index-1].data['data']}\n\nPuan: ${snapshot.data[snapshot.data.length-index-1].data['points']}\n\nPaylaşan: ${snapshot.data[snapshot.data.length-index-1].data['postedby']}"),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(0,10,270,5),
+                                  child: FlatButton.icon(
+                                    onPressed: ()async{
+                                      String color;
+                                      var snapShot=await Firestore.instance.collection('profiles').document(snapshot.data[snapshot.data.length-index-1].data['uid']).get();
+                                      int n=0;
+                                      while(n<snapshot.data[snapshot.data.length-index-1].data['liste'].length){
+                                        if(snapshot.data[snapshot.data.length-index-1].data['liste'][n]==Log_In.currentUser.uid){
+                                          setState(() {
+                                            DatabaseService(number: snapshot.data.length-index-1).updatePoints(snapshot.data[snapshot.data.length-index-1].data['points']-1);
+                                            DatabaseService(uid: snapshot.data[snapshot.data.length-index-1].data['uid']).updatePoints2(snapShot.data['points']-1);
+                                            DatabaseService(number: snapshot.data.length-index-1).updateList2(Log_In.currentUser.uid);
+                                            //snapshot.data[snapshot.data.length-index-1].data['liste'].data[n]==null;
+                                          });
+                                          break;
+                                        }
+                                        else {
+                                          if (n ==
+                                              snapshot.data[snapshot.data.length -
+                                                  index - 1].data['liste'].length -
+                                                  1) {
+                                            setState(() {
+                                              DatabaseService(
+                                                  number: snapshot.data.length -
+                                                      index - 1).updatePoints(
+                                                  snapshot.data[snapshot.data
+                                                      .length - index - 1]
+                                                      .data['points'] + 1);
+                                              DatabaseService(
+                                                  uid: snapshot.data[snapshot.data
+                                                      .length - index - 1]
+                                                      .data['uid']).updatePoints2(
+                                                  snapShot.data['points'] + 1);
+                                              DatabaseService(
+                                                  number: snapshot.data.length -
+                                                      index - 1).updateList(
+                                                  Log_In.currentUser.uid);
+                                              //snapshot.data[snapshot.data.length-index-1].data['liste'].add(Log_In.currentUser.uid);
+                                            });
+                                            break;
+                                          }
+
+                                        }
+                                        n++;}
+                                      if(snapshot.data[snapshot.data.length-index-1].data['liste'].length==0){
                                         setState(() {
-                                          DatabaseService(
-                                              number: snapshot.data.length -
-                                                  index - 1).updatePoints(
-                                              snapshot.data[snapshot.data
-                                                  .length - index - 1]
-                                                  .data['points'] + 1);
-                                          DatabaseService(
-                                              uid: snapshot.data[snapshot.data
-                                                  .length - index - 1]
-                                                  .data['uid']).updatePoints2(
-                                              snapShot.data['points'] + 1);
-                                          DatabaseService(
-                                              number: snapshot.data.length -
-                                                  index - 1).updateList(
-                                              Log_In.currentUser.uid);
+                                          DatabaseService(number: snapshot.data.length-index-1).updatePoints(snapshot.data[snapshot.data.length-index-1].data['points']+1);
+                                          DatabaseService(uid: snapshot.data[snapshot.data.length-index-1].data['uid']).updatePoints2(snapShot.data['points']+1);
+                                          DatabaseService(number: snapshot.data.length-index-1).updateList(Log_In.currentUser.uid);
                                           //snapshot.data[snapshot.data.length-index-1].data['liste'].add(Log_In.currentUser.uid);
                                         });
-                                        break;
                                       }
 
-                                    }
-                                    n++;}
-                                  if(snapshot.data[snapshot.data.length-index-1].data['liste'].length==0){
-                                    setState(() {
-                                      DatabaseService(number: snapshot.data.length-index-1).updatePoints(snapshot.data[snapshot.data.length-index-1].data['points']+1);
-                                      DatabaseService(uid: snapshot.data[snapshot.data.length-index-1].data['uid']).updatePoints2(snapShot.data['points']+1);
-                                      DatabaseService(number: snapshot.data.length-index-1).updateList(Log_In.currentUser.uid);
-                                      //snapshot.data[snapshot.data.length-index-1].data['liste'].add(Log_In.currentUser.uid);
-                                    });
-                                  }
 
 
 
 
-
-                                },
-                                icon: Icon(Icons.smoking_rooms_sharp,
-                                color: HexColor(snapshot.data[snapshot.data.length-index-1].data['liste'].contains(Log_In.currentUser.uid) ? '#C0C0C0':'#0000FF' )),
-                                label: Text("Yak"),
-                              ),
-                            ),
+                                    },
+                                    icon: Icon(Icons.smoking_rooms_sharp,
+                                    color: HexColor(snapshot.data[snapshot.data.length-index-1].data['liste'].contains(Log_In.currentUser.uid) ? '#C0C0C0':'#0000FF' )),
+                                    label: Text("Yak"),
+                                  ),
+                                ),
                           ],
                         ),
                       ),
@@ -118,5 +152,6 @@ class _HomeState extends State<Home> {
         },
       ),
     );
+
   }
 }

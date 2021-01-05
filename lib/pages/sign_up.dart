@@ -159,7 +159,7 @@ class _Sign_upState extends State<Sign_up> {
                         updateUser.photoUrl=_uploadedFileURL;
                         user.updateProfile(updateUser);
                         await DatabaseService(uid: user.uid).updateUserData(_nameController.text, _userNameController.text, _emailController.text, _uploadedFileURL,0);
-                        Navigator.of(context).pushNamed('/log_in');
+                        Navigator.of(context).pushReplacementNamed('/log_in');
                       }
 
                       }catch(error){
@@ -223,7 +223,7 @@ class _Sign_upState extends State<Sign_up> {
                               fontWeight: FontWeight.bold,
                             ),
                             recognizer: TapGestureRecognizer()
-                              ..onTap = () => {Navigator.of(context).pushNamed('/log_in')}),
+                              ..onTap = () => {Navigator.of(context).pushReplacementNamed('/log_in')}),
                       ],
                     ),
                   ),
