@@ -6,6 +6,8 @@ import 'package:projext/pages/log_in.dart';
 import 'package:projext/services/database.dart';
 
 class Home extends StatefulWidget {
+  static int index1;
+  static String yorum;
   @override
   _HomeState createState() => _HomeState();
 }
@@ -77,7 +79,7 @@ class _HomeState extends State<Home> {
                                   child: Text("${snapshot.data[snapshot.data.length-index-1].data['data']}\n\nPuan: ${snapshot.data[snapshot.data.length-index-1].data['points']}\n\nPaylaşan: ${snapshot.data[snapshot.data.length-index-1].data['postedby']}"),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(0,10,270,5),
+                                  padding: EdgeInsets.fromLTRB(0,10,270,0),
                                   child: FlatButton.icon(
                                     onPressed: ()async{
                                       String color;
@@ -140,6 +142,18 @@ class _HomeState extends State<Home> {
                                     label: Text("Yak"),
                                   ),
                                 ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(100, 0, 100, 0),
+                              child: FlatButton.icon(
+                                icon: Icon(Icons.comment,color: Colors.blue,),
+                                label: Text('Yorum yap'),
+                                onPressed: (){
+                                 // Home.yorum=snapshot.data[snapshot.data.length-index-1].collection('comments').document(snapshot.data.lenght-index-1).data['comment'];
+                                  Home.index1=snapshot.data.length-index-1;
+                                  Navigator.of(context).pushNamed('/comments');
+                                },
+                              ),
+                            ),
                           ],
                         ),
                       ),

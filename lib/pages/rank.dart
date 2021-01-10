@@ -45,7 +45,7 @@ class _RankState extends State<Rank> {
                           Rank.snap=snapshot;
                           Rank.rank2=index;
                         });
-                        Navigator.of(context).pushNamed('rank_info');
+                        Navigator.of(context).pushNamed('/rank_info');
                       },
                     ),
                     Padding(

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:projext/pages/addDert.dart';
 import 'package:projext/pages/bottom_nav.dart';
+import 'package:projext/pages/comments.dart';
 import 'package:projext/pages/forgot_password.dart';
 import 'package:projext/pages/log_in.dart';
 import 'package:projext/pages/rank_info.dart';
@@ -20,7 +21,8 @@ void main() {
       '/updatep':(context)=>Update_Profile(),
       '/adddert':(context)=>ADD_Dert(),
       '/forgot':(context)=>ForgotPassword(),
-      'rank_info':(context)=>Rank_Info(),
+      '/rank_info':(context)=>Rank_Info(),
+      '/comments':(context)=>Comments(),
     },
   ));
 }

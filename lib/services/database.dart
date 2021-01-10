@@ -11,7 +11,7 @@ class DatabaseService{
 
   final CollectionReference profiles=Firestore.instance.collection('profiles');
   final CollectionReference posts=Firestore.instance.collection('posts');
-  
+
 
   Future updateUserData(String name,String userName,String email,String image,int points)async{
     return await profiles.document(uid).setData({
@@ -29,6 +29,12 @@ class DatabaseService{
       'points':points,
       'postedby':postedby,
       'liste':liste,
+    });
+  }
+  Future commentPosts(String comment,String uid,int num)async{
+    return await posts.document((number.toString())).collection('comments').document(num.toString()).setData({
+      'comment':comment,
+      'uid':uid,
     });
   }
   Future updatePhoto(String url)async{
