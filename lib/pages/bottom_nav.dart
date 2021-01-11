@@ -32,6 +32,7 @@ class _Bottom_NavState extends State<Bottom_Nav> {
             splashColor: Colors.transparent,
           ),
           child: BottomNavigationBar(
+            selectedItemColor: Colors.yellow[800],
             backgroundColor: Colors.grey[200],
             type: BottomNavigationBarType.fixed,
             currentIndex: _index,
@@ -76,6 +77,7 @@ class _Bottom_NavState extends State<Bottom_Nav> {
       floatingActionButton: Padding(
         padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
         child: FloatingActionButton(
+          backgroundColor: Colors.yellow[800],
           onPressed: (){
             Navigator.of(context).pushNamed('/adddert');
           },

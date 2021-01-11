@@ -22,6 +22,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.yellow[800],
         centerTitle: true,
         title: Text("Profil"),
         actions: [
@@ -101,8 +102,10 @@ class _ProfileState extends State<Profile> {
                      return Material(
                        child: Column(
                          children: [
-                           ListTile(
-                             title:  Text("İsim Soyisim: ${snapshot.data['name']}\nKullanıcı Adı: ${snapshot.data['username']}\nE-Posta: ${snapshot.data['email']}\nPuan: ${snapshot.data['points']}\nSıralama: ${Rank.rank}") ,
+                           Card(
+                             child: ListTile(
+                               title:  Padding(padding: EdgeInsets.all(20),child: Text("İsim Soyisim: ${snapshot.data['name']}\n\nKullanıcı Adı: ${snapshot.data['username']}\n\nE-Posta: ${snapshot.data['email']}\n\nPuan: ${snapshot.data['points']}\n\nSıralama: ${Rank.rank}")) ,
+                             ),
                            ),
                          ],
                        ),

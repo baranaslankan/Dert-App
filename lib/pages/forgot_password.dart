@@ -18,7 +18,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Colors.yellow[800],
         title: Text('Şifre Yenileme'),
         centerTitle: true,
         elevation: 0.0,
@@ -40,19 +40,21 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
                 child: TextField(
+                  cursorColor: Colors.blueGrey[800],
                   controller: _emailController,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.email),
-                    labelText: 'E-mail',
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.blue,
-                      ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.yellow[800]),
                     ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.yellow[800]),
                     ),
-                  ),
+                    hintText: 'Mail adresinizi giriniz',
+                    labelStyle: TextStyle(
+                        color: Colors.grey[800]
+                    ),
+                    prefixIcon: Icon(Icons.email,color: Colors.blueGrey[800],),
+                    labelText: 'E-mail',focusColor: Colors.blueGrey[800],),
                 ),
               ),
               MaterialButton(
@@ -65,7 +67,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     'Gönder',
                     style: TextStyle(color: Colors.white),
                   ),
-                  color: Theme.of(context).primaryColor,
+                  color: Colors.yellow[800],
                   onPressed: ()async{
                     resetPassword(_emailController.text);
                     Navigator.of(context).pushReplacementNamed('/log_in');

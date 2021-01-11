@@ -11,6 +11,7 @@ class _Rank_InfoState extends State<Rank_Info> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.yellow[800],
         centerTitle: true,
         title: Text(Rank.userName),
       ),

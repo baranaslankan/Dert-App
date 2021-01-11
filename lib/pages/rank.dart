@@ -23,6 +23,7 @@ class _RankState extends State<Rank> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.yellow[800],
         centerTitle: true,
         title: Text('Sıralama'),
       ),
