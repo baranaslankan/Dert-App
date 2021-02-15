@@ -20,7 +20,7 @@ class _NotificationsState extends State<Notifications> {
       appBar: AppBar(
         backgroundColor: Colors.yellow[800],
         centerTitle: true,
-        title: Text("Notifications"),
+        title: Text("Bildirimler"),
       ),
       body: Center(
         child: PageView(controller: controller,

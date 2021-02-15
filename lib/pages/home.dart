@@ -139,14 +139,14 @@ class _HomeState extends State<Home> {
 
                                     },
                                     icon: Icon(Icons.smoking_rooms_sharp,
-                                    color: HexColor(snapshot.data[snapshot.data.length-index-1].data['liste'].contains(Log_In.currentUser.uid) ? '#C0C0C0':'#0000FF' )),
+                                    color: HexColor(snapshot.data[snapshot.data.length-index-1].data['liste'].contains(Log_In.currentUser.uid) ? '#C0C0C0':'#FFF9A825' )),
                                     label: Text("Yak"),
                                   ),
                                 ),
                             Padding(
                               padding: EdgeInsets.fromLTRB(100, 0, 100, 0),
                               child: FlatButton.icon(
-                                icon: Icon(Icons.comment,color: Colors.blue,),
+                                icon: Icon(Icons.comment,color: Colors.yellow[800],),
                                 label: Text('Yorum yap'),
                                 onPressed: (){
                                  // Home.yorum=snapshot.data[snapshot.data.length-index-1].collection('comments').document(snapshot.data.lenght-index-1).data['comment'];

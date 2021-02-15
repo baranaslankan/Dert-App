@@ -57,6 +57,7 @@ class _UpdareProfileState extends State<Update_Profile> {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
                   child: Divider(
+                    color: Colors.yellow[800],
                     height: 40.0,
                     thickness: 2.0,
                   ),
@@ -64,14 +65,20 @@ class _UpdareProfileState extends State<Update_Profile> {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
                   child: TextField(
+                    cursorColor: Colors.blueGrey[800],
                     controller: _nameController,
                     decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.person),
-                      labelText: 'İsim Soyisim',
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.blue,
-                        ),
+                      prefixIcon: Icon(Icons.person,color: Colors.blueGrey[800],),
+                      hintText: 'İsim Soyisim giriniz',
+                      labelStyle: TextStyle(
+                          color: Colors.grey[800]
+                      ),
+                      labelText: 'İsim Soyisim',focusColor: Colors.blueGrey[800],
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.yellow[800]),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.yellow[800]),
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
@@ -82,14 +89,20 @@ class _UpdareProfileState extends State<Update_Profile> {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
                   child: TextField(
+                    cursorColor: Colors.blueGrey[800],
                     controller: _userNameController,
                     decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.tag),
-                      labelText: 'Kullanıcı Adı',
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.blue,
-                        ),
+                      prefixIcon: Icon(Icons.tag,color: Colors.blueGrey[800],),
+                      hintText: 'Kullanıcı adı giriniz',
+                      labelStyle: TextStyle(
+                          color: Colors.grey[800]
+                      ),
+                      labelText: 'Kullanıcı Adı',focusColor: Colors.blueGrey[800],
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.yellow[800]),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.yellow[800]),
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
@@ -100,16 +113,16 @@ class _UpdareProfileState extends State<Update_Profile> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                   child: MaterialButton(
-                    elevation: 0.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(22.0),
-                    ),
+                      elevation: 0.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(22.0),
+                      ),
                     padding: EdgeInsets.fromLTRB(30.0, 15.0, 30.0, 15.0),
                     child: Text(
                       'Profili Güncelle',
                       style: TextStyle(color: Colors.white),
                     ),
-                    color: Theme.of(context).primaryColor,
+                      color: Colors.yellow[800],
                     onPressed: () async {
                       try{
                         if(Log_In.currentUser !=null){

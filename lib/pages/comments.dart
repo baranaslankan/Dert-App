@@ -20,6 +20,7 @@ class _CommentsState extends State<Comments> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.yellow[800],
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -61,14 +62,19 @@ class _CommentsState extends State<Comments> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(8,500,8,0),
                 child: TextField(
+                  cursorColor: Colors.blueGrey[800],
                   controller: _commentController,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.comment),
-                    labelText: 'Yorum',
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.blue,
-                      ),
+                    prefixIcon: Icon(Icons.comment,color: Colors.blueGrey[800],),
+                    labelText: 'Yorum',focusColor: Colors.blueGrey[800],
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.yellow[800]),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.yellow[800]),
+                    ),
+                    labelStyle: TextStyle(
+                        color: Colors.grey[800]
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
@@ -88,7 +94,7 @@ class _CommentsState extends State<Comments> {
                       'Gönder',
                       style: TextStyle(color: Colors.white),
                     ),
-                    color: Theme.of(context).primaryColor,
+                  color: Colors.yellow[800],
                   onPressed: ()async{
                     int num=0;
                       var snapShot=await Firestore.instance.collection('posts').document(Home.index1.toString()).collection('comments').document(num.toString()).get();
@@ -97,6 +103,9 @@ class _CommentsState extends State<Comments> {
                         snapShot=await Firestore.instance.collection('posts').document(Home.index1.toString()).collection('comments').document(num.toString()).get();
                       }
                       DatabaseService(number: Home.index1).commentPosts(_commentController.text, Log_In.currentUser.uid,num);
+                    setState(() {
+                      _commentController.text="";
+                    });
                   },
                 ),
               ),

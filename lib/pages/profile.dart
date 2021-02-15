@@ -75,7 +75,7 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                           Padding(
-                            padding:  EdgeInsets.fromLTRB(155, 150, 0, 30),
+                            padding:  EdgeInsets.fromLTRB(155, 150, 0, 0),
                             child: CircleAvatar(
                               radius: 50,
                               backgroundImage: NetworkImage(snapshot.data['image']),
@@ -103,9 +103,13 @@ class _ProfileState extends State<Profile> {
                        child: Column(
                          children: [
                            Card(
-                             child: ListTile(
-                               title:  Padding(padding: EdgeInsets.all(20),child: Text("İsim Soyisim: ${snapshot.data['name']}\n\nKullanıcı Adı: ${snapshot.data['username']}\n\nE-Posta: ${snapshot.data['email']}\n\nPuan: ${snapshot.data['points']}\n\nSıralama: ${Rank.rank}")) ,
+                             shape: RoundedRectangleBorder(
+                               borderRadius: BorderRadius.circular(40),
                              ),
+                             child: ListTile(
+                               title:  Padding(padding: EdgeInsets.all(20),child: Text("İsim Soyisim: ${snapshot.data['name']}\n\nKullanıcı Adı: ${snapshot.data['username']}\n\nE-Posta: ${snapshot.data['email']}\n\nPuan: ${snapshot.data['points']}\n\nSıralama: ${Rank.rank}",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),)) ,
+                             ),
+                             color: Colors.yellow[100],
                            ),
                          ],
                        ),

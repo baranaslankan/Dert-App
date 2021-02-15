@@ -20,58 +20,74 @@ class _ADD_DertState extends State<ADD_Dert> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 16.0),
-            child: TextField(
-              controller: _textcontroller,
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.smoking_rooms_rounded),
-                labelText: 'Dert',
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.blue,
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage('https://www.fonewalls.com/wp-content/uploads/2020/04/Yellow-Phone-Wallpaper.jpg'),
+              fit: BoxFit.cover,
+            )
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 16.0),
+              child: TextField(
+                cursorColor: Colors.blueGrey[800],
+                controller: _textcontroller,
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.smoking_rooms_rounded,color: Colors.blueGrey[800]),
+                  labelText: 'Dert',focusColor: Colors.blueGrey[800],
+                  hintText: 'Derdinizi giriniz',
+                  labelStyle: TextStyle(
+                      color: Colors.grey[800]
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
                 ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.0),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 0),
+              child: MaterialButton(
+                elevation: 0.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(22.0),
                 ),
+                padding: EdgeInsets.fromLTRB(25.0, 12.0, 25.0, 12.0),
+                child: Text(
+                  'Paylaş',
+                  style: TextStyle(color: Colors.yellow[800],fontSize: 17),
+                ),
+                color: Colors.white,
+                onPressed: () async {
+                  List _liste=new List<String>();
+                  snapShot2= await Firestore.instance.collection('profiles').document(Log_In.currentUser.uid).get();
+                  snapShot = (await Firestore.instance.collection('posts').document(_number.toString()).get()) ;
+                  while(snapShot.exists){
+                    _number++;
+                    snapShot = ( await Firestore.instance.collection('posts').document(_number.toString()).get()) ;
+
+                  }
+
+                    await DatabaseService(number: _number).updatePosts(_textcontroller.text,Log_In.currentUser.uid,0,snapShot2.data['username'],_liste);
+                    _number++;
+                    Navigator.of(context).pushReplacementNamed('/nav');
+                    setState(() {
+                    });
+                },
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 0),
-            child: MaterialButton(
-              elevation: 0.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(22.0),
-              ),
-              padding: EdgeInsets.fromLTRB(25.0, 12.0, 25.0, 12.0),
-              child: Text(
-                'Paylaş',
-                style: TextStyle(color: Colors.white),
-              ),
-              color: Theme.of(context).primaryColor,
-              onPressed: () async {
-                List _liste=new List<String>();
-                snapShot2= await Firestore.instance.collection('profiles').document(Log_In.currentUser.uid).get();
-                snapShot = (await Firestore.instance.collection('posts').document(_number.toString()).get()) ;
-                while(snapShot.exists){
-                  _number++;
-                  snapShot = ( await Firestore.instance.collection('posts').document(_number.toString()).get()) ;
-
-                }
-
-                  await DatabaseService(number: _number).updatePosts(_textcontroller.text,Log_In.currentUser.uid,0,snapShot2.data['username'],_liste);
-                  _number++;
-                  Navigator.of(context).pushReplacementNamed('/nav');
-                  setState(() {
-                  });
-              },
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
